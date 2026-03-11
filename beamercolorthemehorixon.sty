@@ -1,0 +1,89 @@
+% ============================================================
+%  beamercolorthemehorixon.sty  —  Color sub-theme
+%  Palette: #243642 · #387478 · #629584 · #E2F1E7
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthemehorixon}[2024/01/01 Horixon Color Theme]
+
+\mode<presentation>
+
+% ---- Core palette -------------------------------------------
+%  horixonnavy    #243642  — deep teal-navy,   primary background
+%  horixondark    #387478  — mid teal,          panels / header / footer
+%  horixonaccent  #629584  — muted sage-teal,   accent / highlights
+%  horixoncream   #E2F1E7  — pale mint-white,   primary text / light fill
+%  horixonalert   #C0392B  — deep red,          alert blocks
+\definecolor{horixonnavy}{HTML}{243642}
+\definecolor{horixondark}{HTML}{387478}
+\definecolor{horixonaccent}{HTML}{629584}
+\definecolor{horixoncream}{HTML}{E2F1E7}
+\definecolor{horixonalert}{HTML}{C0392B}
+
+% Convenience aliases (keeps any legacy references working)
+\colorlet{horixoncyan}{horixoncream}
+\colorlet{horixoncyanlight}{horixonaccent}
+\colorlet{horixonwhite}{horixoncream}
+\colorlet{horixongrey}{horixonaccent}
+\colorlet{horixonlightnavy}{horixondark}
+
+% ---- Structural colours -------------------------------------
+
+% Frame title bar
+\setbeamercolor{frametitle}{fg=horixoncream,   bg=horixonnavy}
+\setbeamercolor{framesubtitle}{fg=horixonaccent, bg=horixonnavy}
+
+% Title page
+\setbeamercolor{title}{fg=horixoncream}
+\setbeamercolor{subtitle}{fg=horixonaccent}
+\setbeamercolor{author}{fg=horixoncream}
+\setbeamercolor{institute}{fg=horixonaccent}
+\setbeamercolor{date}{fg=horixonaccent}
+
+% Table of contents
+\setbeamercolor{section in toc}{fg=horixonnavy}
+\setbeamercolor{section in toc shaded}{fg=horixonaccent}
+\setbeamercolor{subsection in toc}{fg=horixondark}
+\setbeamercolor{subsection in toc shaded}{fg=horixonaccent}
+
+% Boadilla palette slots
+\setbeamercolor{palette primary}{bg=horixonnavy,   fg=horixoncream}
+\setbeamercolor{palette secondary}{bg=horixondark, fg=horixoncream}
+\setbeamercolor{palette tertiary}{bg=horixonaccent,fg=horixonnavy}
+\setbeamercolor{palette quaternary}{bg=horixonnavy,fg=horixonaccent}
+
+% Header boxes
+\setbeamercolor{section in head/foot}{bg=horixondark,    fg=horixoncream}
+\setbeamercolor{subsection in head/foot}{bg=horixonnavy, fg=horixoncream}
+\setbeamercolor{title in head/foot}{bg=horixonnavy,      fg=horixoncream}
+\setbeamercolor{author in head/foot}{bg=horixondark,     fg=horixoncream}
+\setbeamercolor{date in head/foot}{bg=horixonnavy,       fg=horixonaccent}
+\setbeamercolor{page number in head/foot}{bg=horixonaccent, fg=horixonnavy}
+
+% Content blocks
+\setbeamercolor{block title}{fg=horixonnavy,          bg=horixonaccent}
+\setbeamercolor{block body}{fg=horixonnavy,           bg=horixoncream!60!white}
+\setbeamercolor{block title alerted}{fg=horixoncream,   bg=horixonalert}
+\setbeamercolor{block body alerted}{fg=horixonnavy,     bg=horixonalert!12!horixoncream}
+\setbeamercolor{block title example}{fg=horixoncream,   bg=horixondark}
+\setbeamercolor{block body example}{fg=horixonnavy,     bg=horixondark!18!horixoncream}
+
+% Lists / local structure
+\setbeamercolor{item}{fg=horixonaccent}
+\setbeamercolor{subitem}{fg=horixondark}
+\setbeamercolor{subsubitem}{fg=horixonaccent}
+\setbeamercolor{local structure}{fg=horixonaccent}
+
+% Buttons / hyperlinks
+\setbeamercolor{button}{bg=horixonaccent, fg=horixonnavy}
+\setbeamercolor{button border}{fg=horixonaccent}
+\hypersetup{colorlinks=true,
+  linkcolor=horixonaccent, urlcolor=horixonaccent, citecolor=horixonaccent}
+
+% Normal text (slide body)
+\setbeamercolor{normal text}{fg=horixonnavy, bg=horixoncream!30!white}
+
+% Separation lines
+\setbeamercolor{separation line}{bg=horixonaccent}
+
+\mode<all>

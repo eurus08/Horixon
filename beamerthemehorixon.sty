@@ -1,0 +1,28 @@
+% ============================================================
+%  beamerthemehorixon.sty  —  HPC Beamer Theme (master)
+%  Architecture: split into inner / outer / color / font sub-themes
+%  Usage: \usetheme[watermark=on, logo=mylogo.png]{horixon}
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemehorixon}[2024/01/01 HPC Beamer Theme]
+
+% --- Option declarations (forwarded to outer theme) -----------
+\DeclareOptionBeamer{watermark}{\PassOptionsToPackage{watermark=#1}{beamerouterthemehorixon}}
+\DeclareOptionBeamer{logo}{\PassOptionsToPackage{logo=#1}{beamerouterthemehorixon}}
+
+% Default: watermark on, no logo override
+\ExecuteOptionsBeamer{watermark=on}
+\ExecuteOptionsBeamer{logo=none}
+
+\ProcessOptionsBeamer
+
+\mode<presentation>
+
+% --- Load sub-themes in dependency order ----------------------
+\usecolortheme{horixon}    % colours first (fonts & inner reference them)
+\usefonttheme{horixon}     % fonts second
+\useinnertheme{horixon}    % inner slide content
+\useoutertheme{horixon}    % outer chrome (header / footer / background)
+
+\mode<all>

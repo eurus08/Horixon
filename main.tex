@@ -1,0 +1,231 @@
+% ============================================================
+%  main.tex  —  Demo presentation using the HPC Beamer theme
+%  Aspect ratio 16:9.  Compile with: pdflatex main.tex (×2)
+% ============================================================
+
+\documentclass[aspectratio=169]{beamer}
+
+% ---- Packages -----------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{booktabs}       % professional tables
+\usepackage{multicol}
+\usepackage{listings}       % code listings
+\usepackage{hyperref}
+\usepackage[yyyymmdd]{datetime}
+\renewcommand{\dateseparator}{-}
+
+% ---- Load theme (split architecture: 5 .sty files) ----------
+\usetheme[watermark=on, logo=none]{horixon}
+
+% ---- Load environment shortcuts + user macros ---------------
+\input{environment-shortcuts}
+
+% ---- Listings style (for code slides) -----------------------
+\lstset{
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{horixonaccent}\bfseries,
+  commentstyle=\color{horixonaccent!60!horixonnavy}\itshape,
+  stringstyle=\color{horixondark},
+  backgroundcolor=\color{horixondark!25!horixoncream},
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{horixonaccent!70!white},
+  numbers=left,
+  numberstyle=\tiny\color{horixonaccent},
+  breaklines=true,
+  tabsize=2,
+}
+
+% ---- Meta information ---------------------------------------
+\title[HPC Beamer Theme]{High-Performance Computing\\[0.1em]Beamer Presentation Theme}
+\subtitle{A Custom Split-Architecture Template}
+\author[Your Name]{Your Name}
+\institute[Your Institution]{Department of Mathematics / Computer Science\\Your University}
+\date{\today}
+
+% =============================================================
+\begin{document}
+% =============================================================
+
+% ---- Title page ---------------------------------------------
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% ---- Table of contents --------------------------------------
+\begin{frame}[plain]{Table of Contents}
+  \tableofcontents
+\end{frame}
+
+% =============================================================
+\section{Theme Architecture}
+% =============================================================
+
+\begin{frame}{Split Theme Architecture}
+  This theme follows Beamer's recommended \emph{split-theme} pattern.
+  Each concern lives in its own \texttt{.sty} file:
+
+  \vspace{0.3em}
+  \begin{columns}[t]
+    \begin{column}{0.48\textwidth}
+      \blockbegin{Style Files}
+        \begin{itemize}
+          \item \texttt{beamerthemehorixon.sty} — master loader
+          \item \texttt{beamercolorthemehorixon.sty} — palette
+          \item \texttt{beamerfontthemehorixon.sty} — typography
+        \end{itemize}
+      \blockend
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \blockbegin{Layout Files}
+        \begin{itemize}
+          \item \texttt{beamerinnerthemehorixon.sty} — title page, blocks, bullets
+          \item \texttt{beamerouterthemehorixon.sty} — header, footer, background
+          \item \texttt{environment-shortcuts.tex} — user macros
+        \end{itemize}
+      \blockend
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% =============================================================
+\section{Color \& Font Palette}
+% =============================================================
+
+\begin{frame}{Color Palette}
+  \begin{columns}[c]
+    \begin{column}{0.55\textwidth}
+      All colors are defined in \texttt{beamercolorthemehorixon.sty}
+      and can be freely referenced in your slides:
+
+      \vspace{0.4em}
+      \begin{itemize}
+        \item \textcolor{horixonnavy}{\rule{0.8em}{0.8em}}~\texttt{horixonnavy}   \texttt{\#222831} — primary background
+        \item \textcolor{horixondark}{\rule{0.8em}{0.8em}}~\texttt{horixondark}   \texttt{\#393E46} — panels, header, footer
+        \item \textcolor{horixonaccent}{\rule{0.8em}{0.8em}}~\texttt{horixonaccent} \texttt{\#948979} — accent, rules, bullets
+        \item \textcolor{horixoncream}{\rule{0.8em}{0.8em}}~\texttt{horixoncream}  \texttt{\#DFD0B8} — text, light fills
+        \item \textcolor{horixonalert}{\rule{0.8em}{0.8em}}~\texttt{horixonalert}  — alerts, warnings
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \blockbegin{Standard Block}
+        Uses \texttt{horixoncyan} header.
+      \blockend
+      \alertblockbegin{Alert Block}
+        Uses \texttt{horixonalert} header.
+      \alertblockend
+      \exampleblockbegin{Example Block}
+        Uses \texttt{horixonlightnavy} header.
+      \exampleblockend
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% =============================================================
+\section{Math \& HPC Macros}
+% =============================================================
+
+\begin{frame}{Mathematical Shortcuts}
+  The shortcuts file provides common math macros out of the box.
+
+  \vspace{0.4em}
+  \theorembegin{Convergence of Conjugate Gradient}
+    For $\mat{A} \in \R^{n \times n}$ symmetric positive definite,
+    CG satisfies
+    \[
+      \norm{\vect{e}_k}_{\mat{A}}
+        \;\leq\;
+      2\left(\frac{\sqrt{\kappa}-1}{\sqrt{\kappa}+1}\right)^{\!k}
+      \norm{\vect{e}_0}_{\mat{A}},
+    \]
+    where $\kappa = \lambda_{\max}/\lambda_{\min}$ is the condition number.
+  \theoremend
+
+  \vspace{0.3em}
+  \begin{itemize}
+    \item \texttt{\textbackslash vect\{x\}} $\to \vect{x}$ \quad
+          \texttt{\textbackslash mat\{A\}}  $\to \mat{A}$ \quad
+          \texttt{\textbackslash norm\{x\}} $\to \norm{x}$ \quad
+          \texttt{\textbackslash BigO\{n\^{}2\}} $\to \BigO{n^2}$
+    \item \texttt{\textbackslash inner\{u\}\{v\}} $\to \inner{u}{v}$ \quad
+          \texttt{\textbackslash abs\{x\}} $\to \abs{x}$ \quad
+          \texttt{\textbackslash mat\{A\}\textbackslash T} $\to \mat{A}\T$
+  \end{itemize}
+\end{frame}
+
+% =============================================================
+\section{Code \& Listings}
+% =============================================================
+
+\begin{frame}[fragile]{Code Listings}
+  \begin{lstlisting}[language=C, caption={MPI Hello World}]
+#include <mpi.h>
+#include <stdio.h>
+
+int main(int argc, char** argv) {
+    MPI_Init(&argc, &argv);
+
+    int world_size, world_rank;
+    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+
+    printf("Hello from rank %d of %d\n", world_rank, world_size);
+
+    MPI_Finalize();
+    return 0;
+}
+  \end{lstlisting}
+\end{frame}
+
+% =============================================================
+\section{Customisation Guide}
+% =============================================================
+
+\begin{frame}{How to Customise}
+  \columnsbegin[t]
+    \colbegin{0.48\textwidth}
+      \blockbegin{Change Colors}
+        Edit \texttt{beamercolorthemehorixon.sty}.\\
+        Redefine any \texttt{horixon*} color via \texttt{\textbackslash definecolor}.
+      \blockend
+      \blockbegin{Change Fonts}
+        Edit \texttt{beamerfontthemehorixon.sty}.\\
+        Swap \texttt{helvet} for any sans-serif package.
+      \blockend
+    \colend
+    \colbegin{0.48\textwidth}
+      \blockbegin{Toggle Watermark}
+        Pass \texttt{watermark=off} to \texttt{\textbackslash usetheme}\\
+        to disable the circuit board overlay.
+      \blockend
+      \blockbegin{Add Your Logo}
+        Pass \texttt{logo=path/to/logo.png}.\\
+        It appears in the footer right side.
+      \blockend
+    \colend
+  \columnsend
+\end{frame}
+
+% ---- Closing slide ------------------------------------------
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[horixonnavy] (current page.south west) rectangle (current page.north east);
+    \fill[horixonaccent] (current page.north west) rectangle +(\paperwidth, -0.18cm);
+    \fill[horixonaccent] (current page.south west) rectangle +(\paperwidth,  0.12cm);
+  \end{tikzpicture}
+  \vfill
+  \begin{center}
+    {\large\color{horixoncream}\bfseries Thank You}\\[0.5em]
+    \textcolor{horixonaccent}{\rule{5cm}{0.4pt}}\\[0.4em]
+    {\small\color{horixonaccent}\insertauthor}\\
+    {\footnotesize\color{horixonaccent}\insertinstitute}\\[0.3em]
+    {\footnotesize\color{horixoncream}\insertdate}
+  \end{center}
+  \vfill
+\end{frame}
+
+\end{document}

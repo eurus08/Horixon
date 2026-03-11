@@ -1,0 +1,121 @@
+% ============================================================
+%  beamerouterthemehorixon.sty  —  Outer sub-theme
+%  Watermark: "Asumadu" signature, all non-plain frames
+%  Page number: content frames only (not [plain])
+%  Style: Boadilla-inspired navy/cyan chrome
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerouterthemehorixon}[2024/01/01 HPC Outer Theme]
+
+\DeclareOptionBeamer{watermark}{\def\horixon@watermark{#1}}
+\DeclareOptionBeamer{logo}{\def\horixon@logo{#1}}
+\ExecuteOptionsBeamer{watermark=on}
+\ExecuteOptionsBeamer{logo=none}
+\ProcessOptionsBeamer
+
+\mode<presentation>
+
+\usepackage{tikz}
+\usepackage{ifthen}
+
+\def\horixon@watermarkon{on}
+\def\horixon@logonone{none}
+
+% ================================================================
+%  BACKGROUND  — Asumadu signature watermark
+%  Suppressed automatically on [plain] frames via \ifbeamer@plainframe
+% ================================================================
+\usebackgroundtemplate{%
+  \ifx\horixon@watermark\horixon@watermarkon
+    \ifbeamer@plainframe\relax\else
+      \begin{tikzpicture}[remember picture, overlay]
+        \node[opacity=0.055, anchor=center]
+          at ([xshift=0.02\paperwidth] current page.center) {%
+            \includegraphics[width=0.70\paperwidth]%
+              {images/watermark/asumadu_navy.png}%
+        };
+      \end{tikzpicture}%
+    \fi
+  \fi
+}
+
+% ================================================================
+%  HEADLINE  —  three-part Boadilla-style bar
+% ================================================================
+\setbeamertemplate{headline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=0.22\paperwidth, ht=2.8ex, dp=1.2ex,
+        leftskip=0.3cm, rightskip=0.1cm]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.56\paperwidth, ht=2.8ex, dp=1.2ex,
+        leftskip=0.2cm, rightskip=0.2cm, center]{section in head/foot}%
+      \usebeamerfont{section in head/foot}\insertsectionhead
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.22\paperwidth, ht=2.8ex, dp=1.2ex,
+        leftskip=0.1cm, rightskip=0.3cm, right]{subsection in head/foot}%
+      \usebeamerfont{section in head/foot}\insertsubsectionhead
+    \end{beamercolorbox}%
+  }%
+  \begin{beamercolorbox}[wd=\paperwidth, ht=0.15ex, dp=0ex]{separation line}%
+  \end{beamercolorbox}%
+}
+
+% ================================================================
+%  FRAME TITLE  —  with cyan underline
+% ================================================================
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip
+  \begin{beamercolorbox}[wd=\paperwidth, ht=2.6ex, dp=0.8ex,
+      leftskip=0.5cm, rightskip=0.5cm]{frametitle}%
+    \usebeamerfont{frametitle}\insertframetitle%
+    \ifx\insertframesubtitle\empty\else%
+      \hspace{0.4em}%
+      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}%
+        $|$ \insertframesubtitle}%
+    \fi%
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=\paperwidth, ht=0.22ex, dp=0ex]{separation line}%
+  \end{beamercolorbox}%
+}
+
+% ================================================================
+%  FOOTLINE  —  page number blank on [plain] frames
+% ================================================================
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \begin{beamercolorbox}[wd=\paperwidth, ht=0.15ex, dp=0ex]{separation line}%
+  \end{beamercolorbox}%
+  \hbox{%
+    \begin{beamercolorbox}[wd=0.35\paperwidth, ht=2.4ex, dp=1.2ex,
+        leftskip=0.3cm, rightskip=0.1cm]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.30\paperwidth, ht=2.4ex, dp=1.2ex,
+        center]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortinstitute
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.25\paperwidth, ht=2.4ex, dp=1.2ex,
+        center]{date in head/foot}%
+      \usebeamerfont{date in head/foot}\insertshortdate
+    \end{beamercolorbox}%
+    % Page number: only on non-plain frames
+    \begin{beamercolorbox}[wd=0.10\paperwidth, ht=2.4ex, dp=1.2ex,
+        center]{page number in head/foot}%
+      \usebeamerfont{page number in head/foot}%
+      \ifbeamer@plainframe\relax\else
+        \insertframenumber{}/\inserttotalframenumber
+      \fi
+    \end{beamercolorbox}%
+    \ifthenelse{\equal{\horixon@logo}{none}}{}{%
+      \begin{beamercolorbox}[wd=0.0\paperwidth, ht=2.4ex, dp=1.2ex]{palette primary}%
+        \raisebox{-0.3cm}{\includegraphics[height=0.6cm]{\horixon@logo}}%
+      \end{beamercolorbox}%
+    }%
+  }%
+  \vskip0pt%
+}
+
+\mode<all>

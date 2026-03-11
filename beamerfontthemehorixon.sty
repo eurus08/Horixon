@@ -1,0 +1,47 @@
+% ============================================================
+%  beamerfontthemehorixon.sty  —  Font sub-theme
+%  Body: Helvetica (sans-serif clean)
+%  Headings: slightly bolder, larger for hierarchy
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerfontthemehorixon}[2024/01/01 HPC Font Theme]
+
+\mode<presentation>
+
+% --- Base font: Helvetica (phv) / sans-serif ------------------
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+% --- Font size & weight assignments --------------------------
+
+% Title page
+\setbeamerfont{title}{size=\LARGE, series=\bfseries}
+\setbeamerfont{subtitle}{size=\large, series=\normalfont}
+\setbeamerfont{author}{size=\normalsize, series=\bfseries}
+\setbeamerfont{institute}{size=\small, series=\normalfont}
+\setbeamerfont{date}{size=\small, series=\normalfont}
+
+% Frame titles
+\setbeamerfont{frametitle}{size=\large, series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\small, series=\normalfont}
+
+% Table of contents
+\setbeamerfont{section in toc}{size=\normalsize, series=\bfseries}
+\setbeamerfont{subsection in toc}{size=\small}
+
+% Blocks
+\setbeamerfont{block title}{size=\normalsize, series=\bfseries}
+\setbeamerfont{block body}{size=\small}
+
+% Header / footer
+\setbeamerfont{title in head/foot}{size=\tiny}
+\setbeamerfont{author in head/foot}{size=\tiny}
+\setbeamerfont{date in head/foot}{size=\tiny}
+\setbeamerfont{section in head/foot}{size=\tiny, series=\bfseries}
+\setbeamerfont{page number in head/foot}{size=\tiny, series=\bfseries}
+
+% Math: keep upright bold for vectors (common in HPC/numerics docs)
+\setbeamerfont{math text}{family=\rmfamily}
+
+\mode<all>
