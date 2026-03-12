@@ -3,7 +3,8 @@
 %  Aspect ratio 16:9.  Compile with: pdflatex main.tex (×2)
 % ============================================================
 
-\documentclass[aspectratio=169]{beamer}
+
+\documentclass[aspectratio=169]{beamer} % add option aspectratio=169
 
 % ---- Packages -----------------------------------------------
 \usepackage[utf8]{inputenc}
@@ -15,11 +16,11 @@
 \usepackage{multicol}
 \usepackage{listings}       % code listings
 \usepackage{hyperref}
-\usepackage[yyyymmdd]{datetime}
-\renewcommand{\dateseparator}{-}
+% \usepackage[yyyymmdd]{datetime}
+% \renewcommand{\dateseparator}{-}
 
 % ---- Load theme (split architecture: 5 .sty files) ----------
-\usetheme[watermark=on, logo=none]{horixon}
+\usetheme[watermark=on, logo=images/logos/nims.png]{horixon}
 
 % ---- Load environment shortcuts + user macros ---------------
 \input{environment-shortcuts}
@@ -41,11 +42,17 @@
 }
 
 % ---- Meta information ---------------------------------------
-\title[HPC Beamer Theme]{High-Performance Computing\\[0.1em]Beamer Presentation Theme}
+\title[Template]{Horixon - Beamer Presentation Theme}
 \subtitle{A Custom Split-Architecture Template}
-\author[Your Name]{Your Name}
-\institute[Your Institution]{Department of Mathematics / Computer Science\\Your University}
+\author[Asumadu]{Asumadu Prince}
+\institute[NIMS(KNUST)]{Kwame Nkrumah University of Science \& Technology\\
+Faculty of Physical and Computational Sciences\\
+% College of Science\\
+Department of Mathematics\\
+\textbf{National Institute of Mathematical Sciences}
+}
 \date{\today}
+% \logo{\includegraphics[height=0.5cm]{images/logos/nims.png}}
 
 % =============================================================
 \begin{document}
@@ -125,6 +132,8 @@
   \end{columns}
 \end{frame}
 
+
+
 % =============================================================
 \section{Math \& HPC Macros}
 % =============================================================
@@ -161,6 +170,8 @@
 \section{Code \& Listings}
 % =============================================================
 
+\horixonhidesepline
+
 \begin{frame}[fragile]{Code Listings}
   \begin{lstlisting}[language=C, caption={MPI Hello World}]
 #include <mpi.h>
@@ -181,9 +192,13 @@ int main(int argc, char** argv) {
   \end{lstlisting}
 \end{frame}
 
+\horixonshowsepline
+
 % =============================================================
 \section{Customisation Guide}
 % =============================================================
+
+\horixonhidefooter
 
 \begin{frame}{How to Customise}
   \columnsbegin[t]
@@ -222,7 +237,7 @@ int main(int argc, char** argv) {
     {\large\color{horixoncream}\bfseries Thank You}\\[0.5em]
     \textcolor{horixonaccent}{\rule{5cm}{0.4pt}}\\[0.4em]
     {\small\color{horixonaccent}\insertauthor}\\
-    {\footnotesize\color{horixonaccent}\insertinstitute}\\[0.3em]
+    % {\footnotesize\color{horixonaccent}\insertinstitute}\\[0.3em]
     {\footnotesize\color{horixoncream}\insertdate}
   \end{center}
   \vfill

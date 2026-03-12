@@ -6,7 +6,7 @@
 % ============================================================
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerinnerthemehorixon}[2024/01/01 HPC Inner Theme]
+\ProvidesPackage{beamerinnerthemehorixon}[2026/03/11 HPC Inner Theme]
 
 \mode<presentation>
 
@@ -25,102 +25,189 @@
 
 % ================================================================
 %  TITLE PAGE
-%  Design: dark navy base, large angled cyan band cutting across
-%  the bottom-right, a white text card anchored centre-left,
-%  and a cluster of faint concentric parallelograms top-right
-%  for a clean geometric/technical feel.
+%  Layout : full-bleed split
+%    LEFT  (52%) — horixonnavy  — all text
+%    RIGHT (48%) — horixoncream — moderate geometry
+%
+%  Left panel geometry:
+%    • Full-width accent bar at top
+%    • Thin vertical seam line at split
+%    • Small square marker at title baseline
+%    • Darker institute strip at foot of panel with separator rule
+%
+%  Right panel geometry:
+%    • Three staggered rectangles (filled + outlined) — upper area
+%    • Two concentric L-shaped corner marks — lower-left of panel
+%    • Sparse vertical rule grid — lower half, very faint
+%    • Thin accent rule — one-third height from bottom
+%    • Date anchored bottom-right
 % ================================================================
 \defbeamertemplate*{title page}{horixon}[1][]
 {
   \begin{tikzpicture}[remember picture, overlay]
 
-    % ── 1. Full background ──────────────────────────────────
-    \fill[horixonnavy] (current page.south west) rectangle (current page.north east);
+    % ── BACKGROUNDS ──────────────────────────────────────────────
 
-    % ── 2. Large angled warm slab (bottom-right wedge) ──────
-    \fill[horixonaccent!70!horixonnavy]
-      (current page.south east)
-      -- ++(-\paperwidth, 0)
-      -- ++(0.62\paperwidth, 0.38\paperheight)
-      -- cycle;
+    % Right panel — warm cream base
+    \fill[horixoncream!40!white]
+      (current page.south west) rectangle (current page.north east);
 
-    % ── 3. Lighter cream triangle layered on top (smaller) ──
-    \fill[horixoncream!80!horixonaccent]
-      (current page.south east)
-      -- ++(-0.52\paperwidth, 0)
-      -- ++(0, 0.28\paperheight)
-      -- cycle;
+    % Left panel — deep charcoal
+    \fill[horixonnavy]
+      (current page.south west)
+      rectangle ([xshift=0.62\paperwidth] current page.north west);
 
-    % ── 4. Parallelogram accent stack (top-right, decorative)
-    \begin{scope}[opacity=0.15, shift={(current page.north east)},
-                  xshift=-0.5cm, yshift=-0.4cm]
-      \foreach \i in {1,...,6} {
-        \fill[horixonaccent, rotate=-18]
-          ({-\i*0.9cm}, {-\i*0.5cm})
-          rectangle ++({0.7cm}, {3.2cm - \i*0.28cm});
-      }
-    \end{scope}
+    % ── LEFT PANEL ───────────────────────────────────────────────
 
-    % ── 5. Horizontal rule strip below headline area ─────────
-    \fill[horixonaccent] (current page.north west)
-      rectangle ++(\paperwidth, -0.20cm);
-
-    % ── 6. Subtle grid dots (top-left quadrant) ──────────────
-    \begin{scope}[opacity=0.10]
-      \foreach \x in {0.6, 1.2, ..., 5.4} {
-        \foreach \y in {0.4, 0.9, ..., 3.8} {
-          \fill[horixonaccent] ([xshift=\x cm, yshift=-\y cm]
-            current page.north west) circle (0.6pt);
-        }
-      }
-    \end{scope}
-
-    % ── 7. Thin vertical accent bar (left-side) ──────────────
+    % Top accent bar spanning full left panel width
     \fill[horixonaccent]
-      (current page.south west) rectangle ++(0.22cm, \paperheight);
+      (current page.north west)
+      rectangle
+      ([xshift=0.62\paperwidth, yshift=-0.018\paperheight]
+        current page.north west);
 
-    % ── 8. Soft circle behind text area ──────────────────────
-    \fill[horixondark, opacity=0.55]
-      ([xshift=5.8cm, yshift=0.5cm] current page.west)
-      circle (3.4cm);
+    % Vertical seam — accent rule at panel boundary
+    \draw[horixonaccent, line width=1.5pt]
+      ([xshift=0.62\paperwidth] current page.south west)
+      -- ([xshift=0.62\paperwidth] current page.north west);
+
+    % Small filled square marker — sits at title baseline left margin
+    \fill[horixonaccent]
+      ([xshift=0.044\paperwidth, yshift=-0.185\paperheight]
+        current page.north west)
+      rectangle ++(0.18cm, 0.18cm);
+
+    % Institute footer strip
+    \fill[horixondark]
+      (current page.south west)
+      rectangle
+      ([xshift=0.52\paperwidth, yshift=0.18\paperheight]
+        current page.south west);
+
+    % Separator rule above institute strip
+    \draw[horixonaccent!50!horixondark, line width=0.4pt]
+      ([xshift=0.044\paperwidth, yshift=0.18\paperheight]
+        current page.south west)
+      -- ++( 0.4\paperwidth, 0);
+
+    % ── RIGHT PANEL ──────────────────────────────────────────────
+
+    % --- Rectangle stack (upper-right) ---
+
+    \node[anchor=north west] at
+      ([xshift=0.72\paperwidth, yshift=-0.06\paperheight]
+        current page.north west)
+      {\includegraphics[width=0.22\paperwidth, height=0.42\paperheight,
+        keepaspectratio=true]{images/logos/knustnims.png}};
+
+    % % Rect A: back, largest, dark fill
+    % \fill[horixondark, opacity=0.22]
+    %   ([xshift=0.72\paperwidth, yshift=-0.06\paperheight]
+    %     current page.north west)
+    %   rectangle ++(0.22\paperwidth, -0.42\paperheight);
+
+    % % Rect B: mid, accent fill, offset down-right
+    % \fill[horixonaccent, opacity=0.35]
+    %   ([xshift=0.76\paperwidth, yshift=-0.10\paperheight]
+    %     current page.north west)
+    %   rectangle ++(0.20\paperwidth, -0.36\paperheight);
+
+    % % Rect C: front, outline only
+    % \draw[horixondark, line width=0.9pt, opacity=0.40]
+    %   ([xshift=0.80\paperwidth, yshift=-0.15\paperheight]
+    %     current page.north west)
+    %   rectangle ++(0.16\paperwidth, -0.28\paperheight);
+
+    % --- L-shaped corner marks (lower-left of right panel) ---
+
+    % % Outer L
+    % \draw[horixonaccent!60!horixondark, line width=0.7pt, opacity=0.55]
+    %   ([xshift=0.56\paperwidth, yshift=0.30\paperheight]
+    %     current page.south west)
+    %   -- ++(0, -0.07\paperheight)          % vertical leg
+    %   -- ++(0.06\paperwidth, 0);           % horizontal leg
+
+    % Inner L (offset inward)
+    % \draw[horixonaccent!60!horixondark, line width=0.7pt, opacity=0.35]
+    %   ([xshift=0.575\paperwidth, yshift=0.27\paperheight]
+    %     current page.south west)
+    %   -- ++(0, -0.048\paperheight)
+    %   -- ++(0.04\paperwidth, 0);
+
+    % % --- Thin accent horizontal rule across right panel ---
+    % \draw[horixonaccent!55!horixondark, line width=0.45pt]
+    %   ([xshift=0.535\paperwidth, yshift=0.36\paperheight]
+    %     current page.south west)
+    %   -- ++(0.42\paperwidth, 0);
+
+    
+
+    % --- Sparse vertical rule grid (lower right, very faint) ---
+    \begin{scope}[horixondark, opacity=0.1, line width=0.3pt]
+      \foreach \i in {1,...,8} {
+        \draw
+          ([xshift={0.535\paperwidth + \i * 0.052\paperwidth},
+            yshift=0.02\paperheight] current page.south west)
+          -- ++(0, 0.32\paperheight);
+      }
+    \end{scope}
+
+    % --- Full-width bottom accent sliver ---
+    \fill[horixonaccent]
+      (current page.south west)
+      rectangle ++(\paperwidth, 0.007\paperheight);
 
   \end{tikzpicture}%
 
-  % ── 9. Text card (positioned with minipage, sits over art) ──
-  \vspace{-\paperheight}%
-  \vspace{1.05cm}%
-  \hspace{0.65cm}%
-  \begin{minipage}[t]{0.60\paperwidth}
-    \raggedright
+  % ── TEXT ─────────────────────────────────────────────────────
+  \begin{tikzpicture}[remember picture, overlay]
 
     % Title
-    {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}
+    \node[anchor=north west, text width=0.60\paperwidth,
+          align=left, inner sep=0pt] at
+      ([xshift=0.060\paperwidth, yshift=-0.167\paperheight]
+        current page.north west)
+      {{\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}};
 
-    \vspace{0.18cm}
-    % Cyan rule with inset dot
-    \begin{tikzpicture}
-      \draw[horixonaccent, line width=0.6pt] (0,0) -- (0.55\linewidth, 0);
-      \fill[horixonaccent] (0,0) circle (1.6pt);
-    \end{tikzpicture}\par
-    \vspace{0.14cm}
+    % Rule under title
+    \draw[horixonaccent, line width=0.5pt]
+      ([xshift=0.062\paperwidth, yshift=-0.58\paperheight]
+        current page.north west)
+      -- ++(0.43\paperwidth, 0);
 
     % Subtitle
-    \ifx\insertsubtitle\empty\else
-      {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
-      \vspace{0.25cm}
-    \fi
+    \node[anchor=north west, text width=0.46\paperwidth,
+          align=left, inner sep=0pt] at
+      ([xshift=0.062\paperwidth, yshift=-0.61\paperheight]
+        current page.north west)
+      {%
+        \ifx\insertsubtitle\empty\else
+          {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}%
+            \insertsubtitle}%
+        \fi
+      };
 
     % Author
-    {\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}
-    \vspace{0.08cm}
+    \node[anchor=north west, text width=0.46\paperwidth,
+          align=left, inner sep=0pt] at
+      ([xshift=0.062\paperwidth, yshift=-0.70\paperheight]
+        current page.north west)
+      {{\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor}};
 
-    % Institute
-    {\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}
-    \vspace{0.12cm}
+    % Institute — inside footer strip
+    \node[anchor=north west, text width=0.46\paperwidth,
+          align=center, inner sep=0pt] at
+      ([xshift=0.012\paperwidth, yshift=-0.838\paperheight]
+        current page.north west)
+      {{\usebeamerfont{institute}\color{horixoncream}\insertinstitute}};
 
-    % Date
-    {\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}
-  \end{minipage}
+    % Date — bottom-right of right panel
+    \node[anchor=south east, inner sep=0pt] at
+      ([xshift=-0.044\paperwidth, yshift=0.022\paperheight]
+        current page.south east)
+      {{\usebeamerfont{date}\color{horixondark}\insertdate}};
+
+  \end{tikzpicture}%
 }
 
 % ================================================================
