@@ -1,0 +1,26 @@
+% ============================================================
+%  beamerthemehorixon.sty  —  Horixon Beamer Theme (master)
+%  Architecture: split into inner / outer / color / font sub-themes
+%  Usage: \usetheme[watermark=on, logo=assets/logos/nims.png]{horixon}
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemehorixon}[2026/03/11 Horixon Beamer Theme]
+
+% --- Options forwarded to the outer theme --------------------
+\DeclareOptionBeamer{watermark}{\PassOptionsToPackage{watermark=#1}{beamerouterthemehorixon}}
+\DeclareOptionBeamer{logo}{\PassOptionsToPackage{logo=#1}{beamerouterthemehorixon}}
+
+\ExecuteOptionsBeamer{watermark=on}
+\ExecuteOptionsBeamer{logo=none}
+\ProcessOptionsBeamer
+
+\mode<presentation>
+
+% --- Load sub-themes in dependency order ---------------------
+\usecolortheme{horixon}   % colours first (fonts & inner reference them)
+\usefonttheme{horixon}    % fonts second
+\useinnertheme{horixon}   % inner slide content
+\useoutertheme{horixon}   % outer chrome (header / footer / background)
+
+\mode<all>

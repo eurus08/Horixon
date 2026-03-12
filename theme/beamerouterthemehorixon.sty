@@ -1,12 +1,15 @@
 % ============================================================
 %  beamerouterthemehorixon.sty  —  Outer sub-theme
-%  Page number: top-right corner of headline bar
-%               hidden on [plain] frames and on frames
-%               wrapped with \horixonhidepagenum
+%  Controls: background watermark, headline, frame title, footline
+%
+%  Frame-level toggle commands (call outside \begin{frame}):
+%    \horixonhidepagenum / \horixonshowpagenum  — page number in headline
+%    \horixonhidesepline / \horixonshowsepline  — accent rule below frame title
+%    \horixonhidefooter  / \horixonshowfooter   — entire footline
 % ============================================================
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerouterthemehorixon}[2024/01/01 Horixon Outer Theme]
+\ProvidesPackage{beamerouterthemehorixon}[2026/03/11 Horixon Outer Theme]
 
 \DeclareOptionBeamer{watermark}{\def\horixon@watermark{#1}}
 \DeclareOptionBeamer{logo}{\def\horixon@logo{#1}}
@@ -22,15 +25,7 @@
 \def\horixon@watermarkon{on}
 \def\horixon@logonone{none}
 
-% ----------------------------------------------------------------
-%   suppression toggle
-%  \horixonhidepagenum  — call before a frame to hide its number
-%  \horixonshowpagenum  — call after  a frame to restore numbers
-% 
-%  \horixonhidesepline  - call before a frame to hide its Separation line
-%  \horixonhidesepline  - call after  a frame to restore its Separation line
-
-% ----------------------------------------------------------------
+% ---- Toggle commands ----------------------------------------
 \newboolean{horixon@nopagenum}
 \setboolean{horixon@nopagenum}{false}
 \newcommand{\horixonhidepagenum}{\setboolean{horixon@nopagenum}{true}}
@@ -47,24 +42,23 @@
 \newcommand{\horixonshowfooter}{\setboolean{horixon@nofooter}{false}}
 
 % ================================================================
-%  BACKGROUND  — signature watermark, off on [plain] frames
+%  BACKGROUND  —  signature watermark, suppressed on [plain] frames
 % ================================================================
 \usebackgroundtemplate{%
   \ifx\horixon@watermark\horixon@watermarkon
     \ifbeamer@plainframe\relax\else
       \begin{tikzpicture}[remember picture, overlay]
         \node[opacity=0.055, anchor=center]
-          at ([xshift=0.02\paperwidth] current page.center) {%
-            \includegraphics[width=0.70\paperwidth]%
-              {images/watermark/asumadu_navy.png}%
-        };
+          at ([xshift=0.02\paperwidth] current page.center)
+          {\includegraphics[width=0.70\paperwidth]
+            {assets/watermark/asumadu_navy.png}};
       \end{tikzpicture}%
     \fi
   \fi
 }
 
 % ================================================================
-%  HEADLINE  —  author | section | subsection  +  page# top-right
+%  HEADLINE  —  author | section | subsection | page number
 % ================================================================
 \setbeamertemplate{headline}{%
   \leavevmode%
@@ -81,7 +75,7 @@
         leftskip=0.1cm, rightskip=0.2cm, right]{subsection in head/foot}%
       \usebeamerfont{section in head/foot}\insertsubsectionhead
     \end{beamercolorbox}%
-    % Page number — top-right, in accent-coloured box
+    % Page number — top-right corner
     \begin{beamercolorbox}[wd=0.12\paperwidth, ht=2.8ex, dp=1.2ex,
         center]{page number in head/foot}%
       \usebeamerfont{page number in head/foot}%
@@ -92,12 +86,10 @@
       \fi
     \end{beamercolorbox}%
   }%
-  % \begin{beamercolorbox}[wd=\paperwidth, ht=0.15ex, dp=0ex]{separation line}%
-  % \end{beamercolorbox}%
 }
 
 % ================================================================
-%  FRAME TITLE  —  with accent underline
+%  FRAME TITLE  —  with optional accent underline
 % ================================================================
 \setbeamertemplate{frametitle}{%
   \nointerlineskip
@@ -114,55 +106,51 @@
     \begin{beamercolorbox}[wd=\paperwidth, ht=0.22ex, dp=0ex]{separation line}%
     \end{beamercolorbox}%
   }%
-  
 }
 
 % ================================================================
-%  FOOTLINE  —  three-part: title | institute | date
-%  (page number removed — now lives in headline top-right)
+%  FOOTLINE  —  title | institute | date  [| logo]
 % ================================================================
 \setbeamertemplate{footline}{%
   \leavevmode%
   \ifthenelse{\boolean{horixon@nofooter}}{\relax}{%
-    % \begin{beamercolorbox}[wd=\paperwidth, ht=0.15ex, dp=0ex]{separation line}%
-    % \end{beamercolorbox}%
-  \hbox{%
-    \ifthenelse{\equal{\horixon@logo}{none}}{%
-      % No logo: three boxes filling full width
-      \begin{beamercolorbox}[wd=0.40\paperwidth, ht=2.4ex, dp=1.2ex,
-          leftskip=0.3cm, rightskip=0.1cm]{title in head/foot}%
-        \usebeamerfont{title in head/foot}\insertshorttitle
-      \end{beamercolorbox}%
-      \begin{beamercolorbox}[wd=0.35\paperwidth, ht=2.4ex, dp=1.2ex,
-          center]{author in head/foot}%
-        \usebeamerfont{author in head/foot}\insertshortinstitute
-      \end{beamercolorbox}%
-      \begin{beamercolorbox}[wd=0.25\paperwidth, ht=2.4ex, dp=1.2ex,
-          center]{date in head/foot}%
-        \usebeamerfont{date in head/foot}\insertshortdate
-      \end{beamercolorbox}%
-    }{%
-      % Logo present: three narrower boxes + logo box on the right
-      \begin{beamercolorbox}[wd=0.35\paperwidth, ht=2.4ex, dp=1.2ex,
-          leftskip=0.3cm, rightskip=0.1cm]{title in head/foot}%
-        \usebeamerfont{title in head/foot}\insertshorttitle
-      \end{beamercolorbox}%
-      \begin{beamercolorbox}[wd=0.35\paperwidth, ht=2.4ex, dp=1.2ex,
-          center]{author in head/foot}%
-        \usebeamerfont{author in head/foot}\insertshortinstitute
-      \end{beamercolorbox}%
-      \begin{beamercolorbox}[wd=0.18\paperwidth, ht=2.4ex, dp=1.2ex,
-          center]{date in head/foot}%
-        \usebeamerfont{date in head/foot}\insertshortdate
-      \end{beamercolorbox}%
-      \begin{beamercolorbox}[wd=0.15\paperwidth, ht=2.4ex, dp=1.2ex,
-          center]{palette primary}%
-        \raisebox{-0.15cm}{\includegraphics[height=0.5cm, width=1.5cm]{\horixon@logo}}%
-      \end{beamercolorbox}%
+    \hbox{%
+      \ifthenelse{\equal{\horixon@logo}{none}}{%
+        % No logo — three boxes spanning full width
+        \begin{beamercolorbox}[wd=0.40\paperwidth, ht=2.4ex, dp=1.2ex,
+            leftskip=0.3cm, rightskip=0.1cm]{title in head/foot}%
+          \usebeamerfont{title in head/foot}\insertshorttitle
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=0.35\paperwidth, ht=2.4ex, dp=1.2ex,
+            center]{author in head/foot}%
+          \usebeamerfont{author in head/foot}\insertshortinstitute
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=0.25\paperwidth, ht=2.4ex, dp=1.2ex,
+            center]{date in head/foot}%
+          \usebeamerfont{date in head/foot}\insertshortdate
+        \end{beamercolorbox}%
+      }{%
+        % Logo present — three narrower boxes + logo box on the right
+        \begin{beamercolorbox}[wd=0.35\paperwidth, ht=2.4ex, dp=1.2ex,
+            leftskip=0.3cm, rightskip=0.1cm]{title in head/foot}%
+          \usebeamerfont{title in head/foot}\insertshorttitle
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=0.35\paperwidth, ht=2.4ex, dp=1.2ex,
+            center]{author in head/foot}%
+          \usebeamerfont{author in head/foot}\insertshortinstitute
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=0.18\paperwidth, ht=2.4ex, dp=1.2ex,
+            center]{date in head/foot}%
+          \usebeamerfont{date in head/foot}\insertshortdate
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=0.12\paperwidth, ht=2.4ex, dp=1.6ex,
+            center]{palette primary}%
+          \raisebox{-0.15cm}{\includegraphics[height=0.5cm, width=1.4cm,
+            keepaspectratio=true]{\horixon@logo}}%
+        \end{beamercolorbox}%
+      }%
     }%
   }%
-  }%
-
   \vskip0pt%
 }
 

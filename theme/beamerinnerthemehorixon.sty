@@ -1,12 +1,14 @@
 % ============================================================
 %  beamerinnerthemehorixon.sty  —  Inner sub-theme
 %  Controls: title page, section pages, bullet styles, blocks
-%  Title page: bold full-bleed design with layered geometric
-%  panels and a central text card — no diagram clutter.
+%
+%  Title page layout (full-bleed split):
+%    LEFT  62%  horixonnavy   — accent bar, title, subtitle, author, institute strip
+%    RIGHT 38%  horixoncream  — institution logo, faint vertical grid
 % ============================================================
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerinnerthemehorixon}[2026/03/11 HPC Inner Theme]
+\ProvidesPackage{beamerinnerthemehorixon}[2026/03/11 Horixon Inner Theme]
 
 \mode<presentation>
 
@@ -17,7 +19,7 @@
 \setbeamertemplate{items}[circle]
 \setbeamertemplate{sections/subsections in toc}[circle]
 
-% ---- QED symbol: small cyan square -------------------------
+% ---- QED symbol ---------------------------------------------
 \setbeamertemplate{qed symbol}{\textcolor{horixonaccent}{$\blacksquare$}}
 
 % ---- Navigation symbols: suppress ---------------------------
@@ -25,53 +27,37 @@
 
 % ================================================================
 %  TITLE PAGE
-%  Layout : full-bleed split
-%    LEFT  (52%) — horixonnavy  — all text
-%    RIGHT (48%) — horixoncream — moderate geometry
-%
-%  Left panel geometry:
-%    • Full-width accent bar at top
-%    • Thin vertical seam line at split
-%    • Small square marker at title baseline
-%    • Darker institute strip at foot of panel with separator rule
-%
-%  Right panel geometry:
-%    • Three staggered rectangles (filled + outlined) — upper area
-%    • Two concentric L-shaped corner marks — lower-left of panel
-%    • Sparse vertical rule grid — lower half, very faint
-%    • Thin accent rule — one-third height from bottom
-%    • Date anchored bottom-right
 % ================================================================
 \defbeamertemplate*{title page}{horixon}[1][]
 {
   \begin{tikzpicture}[remember picture, overlay]
 
-    % ── BACKGROUNDS ──────────────────────────────────────────────
+    % ── Backgrounds ──────────────────────────────────────────────
 
-    % Right panel — warm cream base
+    % Right panel — pale cream base
     \fill[horixoncream!40!white]
       (current page.south west) rectangle (current page.north east);
 
-    % Left panel — deep charcoal
+    % Left panel — deep navy
     \fill[horixonnavy]
       (current page.south west)
       rectangle ([xshift=0.62\paperwidth] current page.north west);
 
-    % ── LEFT PANEL ───────────────────────────────────────────────
+    % ── Left panel ───────────────────────────────────────────────
 
-    % Top accent bar spanning full left panel width
+    % Top accent bar
     \fill[horixonaccent]
       (current page.north west)
       rectangle
       ([xshift=0.62\paperwidth, yshift=-0.018\paperheight]
         current page.north west);
 
-    % Vertical seam — accent rule at panel boundary
+    % Vertical seam rule at panel boundary
     \draw[horixonaccent, line width=1.5pt]
       ([xshift=0.62\paperwidth] current page.south west)
       -- ([xshift=0.62\paperwidth] current page.north west);
 
-    % Small filled square marker — sits at title baseline left margin
+    % Small filled square marker at title baseline
     \fill[horixonaccent]
       ([xshift=0.044\paperwidth, yshift=-0.185\paperheight]
         current page.north west)
@@ -88,61 +74,18 @@
     \draw[horixonaccent!50!horixondark, line width=0.4pt]
       ([xshift=0.044\paperwidth, yshift=0.18\paperheight]
         current page.south west)
-      -- ++( 0.4\paperwidth, 0);
+      -- ++(0.4\paperwidth, 0);
 
-    % ── RIGHT PANEL ──────────────────────────────────────────────
+    % ── Right panel ──────────────────────────────────────────────
 
-    % --- Rectangle stack (upper-right) ---
-
+    % Institution logo
     \node[anchor=north west] at
       ([xshift=0.72\paperwidth, yshift=-0.06\paperheight]
         current page.north west)
       {\includegraphics[width=0.22\paperwidth, height=0.42\paperheight,
-        keepaspectratio=true]{images/logos/knustnims.png}};
+        keepaspectratio=true]{assets/logos/knustnims.png}};
 
-    % % Rect A: back, largest, dark fill
-    % \fill[horixondark, opacity=0.22]
-    %   ([xshift=0.72\paperwidth, yshift=-0.06\paperheight]
-    %     current page.north west)
-    %   rectangle ++(0.22\paperwidth, -0.42\paperheight);
-
-    % % Rect B: mid, accent fill, offset down-right
-    % \fill[horixonaccent, opacity=0.35]
-    %   ([xshift=0.76\paperwidth, yshift=-0.10\paperheight]
-    %     current page.north west)
-    %   rectangle ++(0.20\paperwidth, -0.36\paperheight);
-
-    % % Rect C: front, outline only
-    % \draw[horixondark, line width=0.9pt, opacity=0.40]
-    %   ([xshift=0.80\paperwidth, yshift=-0.15\paperheight]
-    %     current page.north west)
-    %   rectangle ++(0.16\paperwidth, -0.28\paperheight);
-
-    % --- L-shaped corner marks (lower-left of right panel) ---
-
-    % % Outer L
-    % \draw[horixonaccent!60!horixondark, line width=0.7pt, opacity=0.55]
-    %   ([xshift=0.56\paperwidth, yshift=0.30\paperheight]
-    %     current page.south west)
-    %   -- ++(0, -0.07\paperheight)          % vertical leg
-    %   -- ++(0.06\paperwidth, 0);           % horizontal leg
-
-    % Inner L (offset inward)
-    % \draw[horixonaccent!60!horixondark, line width=0.7pt, opacity=0.35]
-    %   ([xshift=0.575\paperwidth, yshift=0.27\paperheight]
-    %     current page.south west)
-    %   -- ++(0, -0.048\paperheight)
-    %   -- ++(0.04\paperwidth, 0);
-
-    % % --- Thin accent horizontal rule across right panel ---
-    % \draw[horixonaccent!55!horixondark, line width=0.45pt]
-    %   ([xshift=0.535\paperwidth, yshift=0.36\paperheight]
-    %     current page.south west)
-    %   -- ++(0.42\paperwidth, 0);
-
-    
-
-    % --- Sparse vertical rule grid (lower right, very faint) ---
+    % Faint vertical rule grid
     \begin{scope}[horixondark, opacity=0.1, line width=0.3pt]
       \foreach \i in {1,...,8} {
         \draw
@@ -152,14 +95,14 @@
       }
     \end{scope}
 
-    % --- Full-width bottom accent sliver ---
+    % Full-width bottom accent sliver
     \fill[horixonaccent]
       (current page.south west)
       rectangle ++(\paperwidth, 0.007\paperheight);
 
   \end{tikzpicture}%
 
-  % ── TEXT ─────────────────────────────────────────────────────
+  % ── Text nodes ───────────────────────────────────────────────
   \begin{tikzpicture}[remember picture, overlay]
 
     % Title
@@ -211,20 +154,18 @@
 }
 
 % ================================================================
-%  SECTION PAGE  (shown when \sectionpage is called)
+%  SECTION PAGE
 % ================================================================
 \defbeamertemplate*{section page}{horixon}[1][]
 {
   \begin{tikzpicture}[remember picture, overlay]
-    \fill[horixonnavy] (current page.south west) rectangle (current page.north east);
+    \fill[horixonnavy]   (current page.south west) rectangle (current page.north east);
     \fill[horixonaccent] (current page.north west) rectangle +(\paperwidth, -0.18cm);
     \fill[horixonaccent] (current page.south west) rectangle +(\paperwidth,  0.12cm);
     \fill[horixondark]
-      ([xshift=-0.01cm] current page.south west) rectangle
-      ++(0.25cm, \paperheight);
+      ([xshift=-0.01cm] current page.south west) rectangle ++(0.25cm, \paperheight);
     \fill[horixonaccent]
-      ([xshift=-0.01cm] current page.south west) rectangle
-      ++(0.08cm, \paperheight);
+      ([xshift=-0.01cm] current page.south west) rectangle ++(0.08cm, \paperheight);
   \end{tikzpicture}
   \vfill
   \begin{center}
@@ -234,7 +175,7 @@
 }
 
 % ================================================================
-%  BLOCK TEMPLATES  (rounded, Boadilla-inspired)
+%  BLOCK TEMPLATES  (rounded)
 % ================================================================
 \setbeamertemplate{block begin}{
   \vskip.1cm
@@ -244,13 +185,11 @@
   \end{beamercolorbox}
   \nointerlineskip
   \begin{beamercolorbox}[rounded=true, shadow=false,
-      leftskip=0.4cm, rightskip=0.4cm, sep=0.2cm,
-      vmode]{block body}
+      leftskip=0.4cm, rightskip=0.4cm, sep=0.2cm, vmode]{block body}
     \usebeamerfont{block body}
 }
 \setbeamertemplate{block end}{
-  \end{beamercolorbox}
-  \vskip.1cm
+  \end{beamercolorbox}\vskip.1cm
 }
 
 \setbeamertemplate{block alerted begin}{
@@ -261,13 +200,11 @@
   \end{beamercolorbox}
   \nointerlineskip
   \begin{beamercolorbox}[rounded=true, shadow=false,
-      leftskip=0.4cm, rightskip=0.4cm, sep=0.2cm,
-      vmode]{block body alerted}
+      leftskip=0.4cm, rightskip=0.4cm, sep=0.2cm, vmode]{block body alerted}
     \usebeamerfont{block body}
 }
 \setbeamertemplate{block alerted end}{
-  \end{beamercolorbox}
-  \vskip.1cm
+  \end{beamercolorbox}\vskip.1cm
 }
 
 \setbeamertemplate{block example begin}{
@@ -278,13 +215,11 @@
   \end{beamercolorbox}
   \nointerlineskip
   \begin{beamercolorbox}[rounded=true, shadow=false,
-      leftskip=0.4cm, rightskip=0.4cm, sep=0.2cm,
-      vmode]{block body example}
+      leftskip=0.4cm, rightskip=0.4cm, sep=0.2cm, vmode]{block body example}
     \usebeamerfont{block body}
 }
 \setbeamertemplate{block example end}{
-  \end{beamercolorbox}
-  \vskip.1cm
+  \end{beamercolorbox}\vskip.1cm
 }
 
 \mode<all>

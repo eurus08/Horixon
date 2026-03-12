@@ -1,10 +1,10 @@
 % ============================================================
-%  main.tex  —  Demo presentation using the HPC Beamer theme
+%  main.tex  —  Demo presentation using the Horixon Beamer theme
 %  Aspect ratio 16:9.  Compile with: pdflatex main.tex (×2)
+%  or: latexmk -pdf main.tex
 % ============================================================
 
-
-\documentclass[aspectratio=169]{beamer} % add option aspectratio=169
+\documentclass[aspectratio=169]{beamer}
 
 % ---- Packages -----------------------------------------------
 \usepackage[utf8]{inputenc}
@@ -12,20 +12,20 @@
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{mathtools}
 \usepackage{graphicx}
-\usepackage{booktabs}       % professional tables
+\usepackage{booktabs}
 \usepackage{multicol}
-\usepackage{listings}       % code listings
+\usepackage{listings}
 \usepackage{hyperref}
-% \usepackage[yyyymmdd]{datetime}
-% \renewcommand{\dateseparator}{-}
 
-% ---- Load theme (split architecture: 5 .sty files) ----------
-\usetheme[watermark=on, logo=images/logos/nims.png]{horixon}
+% ---- Load theme ---------------------------------------------
+%  Theme .sty files live in ./theme/ — add it to LaTeX's search path
+\makeatletter\def\input@path{{theme/}}\makeatother
+\usetheme[watermark=on, logo=assets/logos/nims.png]{horixon}
 
 % ---- Load environment shortcuts + user macros ---------------
-\input{environment-shortcuts}
+\input{theme/environment-shortcuts}
 
-% ---- Listings style (for code slides) -----------------------
+% ---- Listings style -----------------------------------------
 \lstset{
   basicstyle=\ttfamily\scriptsize,
   keywordstyle=\color{horixonaccent}\bfseries,
@@ -41,18 +41,17 @@
   tabsize=2,
 }
 
-% ---- Meta information ---------------------------------------
+% ---- Presentation metadata ----------------------------------
 \title[Template]{Horixon - Beamer Presentation Theme}
 \subtitle{A Custom Split-Architecture Template}
 \author[Asumadu]{Asumadu Prince}
-\institute[NIMS(KNUST)]{Kwame Nkrumah University of Science \& Technology\\
-Faculty of Physical and Computational Sciences\\
-% College of Science\\
-Department of Mathematics\\
-\textbf{National Institute of Mathematical Sciences}
+\institute[NIMS(KNUST)]{%
+  Kwame Nkrumah University of Science \& Technology\\
+  Faculty of Physical and Computational Sciences\\
+  Department of Mathematics\\
+  \textbf{National Institute of Mathematical Sciences}%
 }
 \date{\today}
-% \logo{\includegraphics[height=0.5cm]{images/logos/nims.png}}
 
 % =============================================================
 \begin{document}
@@ -131,8 +130,6 @@ Department of Mathematics\\
     \end{column}
   \end{columns}
 \end{frame}
-
-
 
 % =============================================================
 \section{Math \& HPC Macros}
@@ -215,15 +212,17 @@ int main(int argc, char** argv) {
     \colbegin{0.48\textwidth}
       \blockbegin{Toggle Watermark}
         Pass \texttt{watermark=off} to \texttt{\textbackslash usetheme}\\
-        to disable the circuit board overlay.
+        to disable the background overlay.
       \blockend
       \blockbegin{Add Your Logo}
-        Pass \texttt{logo=path/to/logo.png}.\\
+        Pass \texttt{logo=assets/logos/yourlogo.png}.\\
         It appears in the footer right side.
       \blockend
     \colend
   \columnsend
 \end{frame}
+
+\horixonshowfooter
 
 % ---- Closing slide ------------------------------------------
 \begin{frame}[plain]
@@ -237,7 +236,6 @@ int main(int argc, char** argv) {
     {\large\color{horixoncream}\bfseries Thank You}\\[0.5em]
     \textcolor{horixonaccent}{\rule{5cm}{0.4pt}}\\[0.4em]
     {\small\color{horixonaccent}\insertauthor}\\
-    % {\footnotesize\color{horixonaccent}\insertinstitute}\\[0.3em]
     {\footnotesize\color{horixoncream}\insertdate}
   \end{center}
   \vfill
